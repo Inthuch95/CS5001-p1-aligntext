@@ -2,51 +2,51 @@
 public abstract class TextUtil {
 
 	public static void alignText(String[] paragraphs, int lineLength, String option){
+		String format;
 		switch(option){
-			case "L": 
-				System.out.println("L");
-			    break;
-			
-			case "C": 
-				System.out.println("C");
+			case "L":
+				format = "%-" + lineLength + "s";
+				alignLeftRight(paragraphs, lineLength, format);
 				break;
-			
-			case "J": 
-				System.out.println("J");
+			case "C":
+				format = "";
 				break;
-					  
-		    default :
-		    	for(int i=0;i<paragraphs.length;i++){
-		    		alignRight(paragraphs[i], lineLength);
-		    	}
-		    	break;
+			case "J":
+				format = "";
+				break;
+			default:
+				format = "%" + lineLength + "s";
+				alignLeftRight(paragraphs, lineLength, format);
+				break;
 		}
 	}
 	
-	public static void alignRight(String paragraph, int lineLength){
-		paragraph = paragraph.trim();
-    	String[] wordList = paragraph.split("\\s+");
-    	String outStr;
-    	String temp;
-    	
-    	int i = 0;
-    	while(i < wordList.length){
-    		outStr = "";
-    		temp = "";
-    		while((outStr.length() <= lineLength) && i < wordList.length){
-	    		temp = outStr;
-	    		outStr = outStr + " " + wordList[i];
-	    		i++;
-	    	}
-	    	if(outStr.length() > lineLength){
-	    		outStr = temp;
-	    		i = i - 1;
-	    	}
+	private static void alignLeftRight(String[] paragraphs, int lineLength, String format){
+		String paragraph;
+		for(int i=0;i<paragraphs.length;i++){
+			paragraph = paragraphs[i].trim();
+	    	String[] wordList = paragraph.split("\\s+");
+	    	String outStr;
+	    	String temp;
 	    	
-	    	String format = "%" + lineLength + "s";
-	    	outStr = String.format(format, outStr);
-	    	System.out.println(outStr);
-    	}
+	    	int j = 0;
+	    	while(j < wordList.length){
+	    		outStr = "";
+	    		temp = "";
+	    		while((outStr.length() <= lineLength) && j < wordList.length){
+		    		temp = outStr;
+		    		outStr = outStr + " " + wordList[j];
+		    		j++;
+		    	}
+		    	if(outStr.length() > lineLength){
+		    		outStr = temp;
+		    		j = j - 1;
+		    	}
+		    	
+		    	outStr = String.format(format, outStr);
+		    	System.out.println(outStr);
+	    	}
+		}
 	}
 
 }

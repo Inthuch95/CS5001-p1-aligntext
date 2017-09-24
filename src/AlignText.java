@@ -10,7 +10,7 @@ public class AlignText {
 		TextUtil.alignText(paragraphs, lineLength, option);
 	}
 	
-	public static String checkArgs(String[] args){
+	private static String checkArgs(String[] args){
 		String option;
 		// Check for missing arguments
 		if(args.length < 2){
