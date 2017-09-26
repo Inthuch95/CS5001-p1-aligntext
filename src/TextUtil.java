@@ -12,7 +12,7 @@ public abstract class TextUtil {
 				alignCenter(paragraphs, lineLength);
 				break;
 			case "J":
-				justifyText(paragraphs[0], lineLength);
+				justifyText(paragraphs, lineLength);
 				break;
 			default:
 				format = "%" + lineLength + "s";
@@ -72,14 +72,13 @@ public abstract class TextUtil {
 		    		j = j - 1;
 		    	}
 		    	
-		        int length = outStr.length();
-		        int padding = lineLength / 2;//decide left and right padding
-		        // extra character in case of String with even length
-		        int extra = (length % 2 == 0) ? 1 : 0;
+		        int padding = lineLength / 2;
+		        // extra space at the start in case of String with odd space
+		        int extra = (outStr.length() % 2 == 0) ? 1 : 0;
 		        
 		        
-		        leftPadding = "%" + (padding - extra) + "s";
-		        rightPadding = "%" + padding + "s";
+		        leftPadding = "%" + padding + "s";
+		        rightPadding = "%" + (padding - extra) + "s";
 		        format = leftPadding + "%s" + rightPadding;
 		        
 		    	outStr = String.format(format, "", outStr, "");
@@ -88,35 +87,28 @@ public abstract class TextUtil {
 		}
 	}
 	
-	private static void justifyText(String text, int lineLength){
-		int STR_LENGTH = lineLength;
-	    int end=STR_LENGTH, extraSpacesPerWord=0, spillOverSpace=0;
-	    String[] words;
+	private static void justifyText(String[] paragraphs, int lineLength){
+	    int end=lineLength, extraSpacesPerWord=0, spillOverSpace=0;
+	    String[] wordList;
 
-	    while(end < text.length()) {
+	    for(int i=0;i<paragraphs.length;i++){
+	    	while(end < paragraphs[i].length()) {
+		        end = paragraphs[i].lastIndexOf(" ", lineLength);
+		        wordList = paragraphs[i].substring(0, end).split(" ");
+		        extraSpacesPerWord = (lineLength - end) / wordList.length;
+		        spillOverSpace = lineLength - end + (extraSpacesPerWord * wordList.length);
 
-	        if(text.charAt(STR_LENGTH) == ' ') {
-	            // Technically, this block is redundant
-	            System.out.println (text.substring(0, STR_LENGTH));
-	            text = text.substring(STR_LENGTH);
-	            continue;
-	        }
+		        for(String word: wordList) {
+		            System.out.print(word + " ");
+		            System.out.print((extraSpacesPerWord-- > 0) ? " ": "");
+		            System.out.print((spillOverSpace-- > 0) ? " ": "");
+		        }
+		        System.out.print("\n");
+		        paragraphs[i] = paragraphs[i].substring(end+1);
 
-	        end = text.lastIndexOf(" ", STR_LENGTH);
-	        words = text.substring(0, end).split(" ");
-	        extraSpacesPerWord = (STR_LENGTH - end) / words.length;
-	        spillOverSpace = STR_LENGTH - end + (extraSpacesPerWord * words.length);
-
-	        for(String word: words) {
-	            System.out.print(word + " ");
-	            System.out.print((extraSpacesPerWord-- > 0) ? " ": "");
-	            System.out.print((spillOverSpace-- > 0) ? " ": "");
-	        }
-	        System.out.print("\n");
-	        text = text.substring(end+1);
-
+		    }
+		    System.out.println(paragraphs[i]);
 	    }
-	    System.out.println(text);
 	}
 
 }
