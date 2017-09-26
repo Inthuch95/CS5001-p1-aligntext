@@ -13,7 +13,7 @@ public class AlignText {
 	private static String checkArgs(String[] args){
 		String option;
 		// Check for missing arguments
-		if(args.length < 2){
+		if(args.length < 2 || args.length > 3){
 			System.out.println("usage: java AlignText file_name "
 					+ "line_length <align_mode>");
 			System.exit(0);

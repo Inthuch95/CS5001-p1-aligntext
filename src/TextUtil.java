@@ -21,7 +21,8 @@ public abstract class TextUtil {
 		}
 	}
 	
-	private static void alignLeftRight(String[] paragraphs, int lineLength, String format){
+	private static void alignLeftRight(String[] paragraphs, int lineLength, 
+			String format){
 		String paragraph;
 		for(int i=0;i<paragraphs.length;i++){
 			paragraph = paragraphs[i].trim();
