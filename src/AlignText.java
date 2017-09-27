@@ -1,3 +1,16 @@
+/**
+ * AlignText program reads in a number of paragraph from of text from a file and 
+ * aligns the text based on the specified line length.The program will perform 
+ * right-align by default
+ * Usage: java AlignText file_name line_length <align_mode> 
+ * Available "align mode" are [L, C, J].
+ * L - Left-align text from the file 
+ * C - Centre-align text from the file 
+ * J - Fully justify text from the file
+ *  
+ * @author Inthuch Therdchanakul 27/9/2017
+ *
+ */
 public class AlignText {
 
 	public static void main(String[] args) {
@@ -10,6 +23,13 @@ public class AlignText {
 		TextUtil.alignText(paragraphs, lineLength, option);
 	}
 	
+	/**
+	 * This method is used to verify the command line arguments from the user.
+	 * It will show usage message to the user if it detects invalid an argument.
+	 * @param args Command line arguments
+	 * @return String This returns the third command line argument if it is valid.
+	 * It will return an empty string if the user did not specify the third argument. 
+	 */
 	private static String checkArgs(String[] args){
 		String option;
 		// check for missing arguments

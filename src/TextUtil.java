@@ -1,6 +1,19 @@
 
+/**
+ * This class handles text alignment for the AlignText program
+ * 
+ * @author Inthuch Therdchanakul 27/9/2017
+ *
+ */
 public abstract class TextUtil {
 
+	/**
+	 * This method calls appropriate text alignment method based on user input
+	 * @param paragraphs The paragraphs from text file
+	 * @param lineLength The line length specified by the user
+	 * @param option align mode which is an optional command line argument.
+	 *  It will be empty if the user did not specify one.
+	 */
 	public static void alignText(String[] paragraphs, int lineLength, String option){
 		String format;
 		switch(option){
@@ -22,15 +35,22 @@ public abstract class TextUtil {
 		}
 	}
 	
+	/**
+	 * This method left/right align text from the file
+	 * @param paragraphs The paragraphs from text file
+	 * @param lineLength The line length specified by the user
+	 * @param format The format of text alignment. It can be left/right align
+	 */
 	private static void alignLeftRight(String[] paragraphs, int lineLength, 
 			String format){
+		String[] wordList;
 		String paragraph;
+		String outStr, temp;
+		
 		for(int i=0;i<paragraphs.length;i++){
 			paragraph = paragraphs[i].trim();
-	    	String[] wordList = paragraph.split("\\s+");
-	    	String outStr;
-	    	String temp;
-	    	
+	    	wordList = paragraph.split("\\s+");
+	    	// concatenate strings until line length reached
 	    	int j = 0;
 	    	while(j < wordList.length){
 	    		outStr = "";
@@ -51,15 +71,23 @@ public abstract class TextUtil {
 		}
 	}
 	
+	/**
+	 * This method center-align text from the file. It will add an extra space to 
+	 * the start of the line if there are an odd number of spaces.
+	 * @param paragraphs The paragraphs from text file
+	 * @param lineLength The line length specified by the user
+	 */
 	private static void alignCenter(String[] paragraphs, int lineLength){
+		String[] wordList;
 		String paragraph, leftPadding, rightPadding, format;
 		String outStr;
     	String temp;
 	    
 		for(int i=0;i<paragraphs.length;i++){
 			paragraph = paragraphs[i].trim();
-	    	String[] wordList = paragraph.split("\\s+");
+	    	wordList = paragraph.split("\\s+");
 	    	
+	    	// concatenate strings until line length reached
 	    	int j = 0;
 	    	while(j < wordList.length){
 	    		outStr = "";
@@ -80,8 +108,8 @@ public abstract class TextUtil {
 		        // extra space at the start in case of String with odd space
 		        int extra = (outStr.length() % 2 == 0) ? 1 : 0;
 		        
-		        leftPadding = "%" + padding + "s";
-		        rightPadding = "%" + (padding - extra) + "s";
+		        leftPadding = "%" + (padding - extra) + "s";
+		        rightPadding = "%" + padding + "s";
 		        format = leftPadding + "%s" + rightPadding;
 		        
 		    	outStr = String.format(format, "", outStr, "");
@@ -90,8 +118,15 @@ public abstract class TextUtil {
 		}
 	}
 	
+	/**
+	 * This method fully justify text from the file.
+	 * @param paragraphs The paragraphs from text file
+	 * @param lineLength The line length specified by the user
+	 */
 	private static void justifyText(String[] paragraphs, int lineLength){
-	    int end=lineLength, extraSpacesPerWord=0, spillOverSpace=0;
+	    int end = lineLength;
+	    int extraSpacesPerWord = 0;
+	    int spillOverSpace = 0;
 	    String[] wordList;
 
 	    for(int i=0;i<paragraphs.length;i++){
@@ -101,6 +136,7 @@ public abstract class TextUtil {
 		        extraSpacesPerWord = (lineLength - end) / wordList.length;
 		        spillOverSpace = lineLength - end + (extraSpacesPerWord * wordList.length);
 
+		        // print the word out and add extra space as required
 		        for(String word: wordList) {
 		            System.out.print(word + " ");
 		            System.out.print((extraSpacesPerWord-- > 0) ? " ": "");
