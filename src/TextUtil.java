@@ -5,7 +5,7 @@
  * @author Inthuch Therdchanakul 27/9/2017
  *
  */
-public abstract class TextUtil {
+public class TextUtil {
 
 	/**
 	 * This method calls appropriate text alignment method based on user input
@@ -41,7 +41,7 @@ public abstract class TextUtil {
 	 * @param lineLength The line length specified by the user
 	 * @param format The format of text alignment. It can be left/right align
 	 */
-	private static void alignLeftRight(String[] paragraphs, int lineLength, 
+	public static void alignLeftRight(String[] paragraphs, int lineLength, 
 			String format){
 		String[] wordList;
 		String paragraph;
@@ -77,7 +77,7 @@ public abstract class TextUtil {
 	 * @param paragraphs The paragraphs from text file
 	 * @param lineLength The line length specified by the user
 	 */
-	private static void alignCenter(String[] paragraphs, int lineLength){
+	public static void alignCenter(String[] paragraphs, int lineLength){
 		String[] wordList;
 		String paragraph, leftPadding, rightPadding, format;
 		String outStr;
@@ -123,7 +123,7 @@ public abstract class TextUtil {
 	 * @param paragraphs The paragraphs from text file
 	 * @param lineLength The line length specified by the user
 	 */
-	private static void justifyText(String[] paragraphs, int lineLength){
+	public static void justifyText(String[] paragraphs, int lineLength){
 	    int end = lineLength;
 	    int extraSpacesPerWord = 0;
 	    int spillOverSpace = 0;
