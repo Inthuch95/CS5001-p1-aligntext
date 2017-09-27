@@ -15,6 +15,7 @@ public abstract class TextUtil {
 				justifyText(paragraphs, lineLength);
 				break;
 			default:
+				// right-align text if third argument is not specified
 				format = "%" + lineLength + "s";
 				alignLeftRight(paragraphs, lineLength, format);
 				break;
@@ -73,10 +74,11 @@ public abstract class TextUtil {
 		    		j = j - 1;
 		    	}
 		    	
-		        int padding = lineLength / 2;
+		    	// max space from left/right margin
+		    	int maxPadding = 20;
+		        int padding = maxPadding / 2;
 		        // extra space at the start in case of String with odd space
 		        int extra = (outStr.length() % 2 == 0) ? 1 : 0;
-		        
 		        
 		        leftPadding = "%" + padding + "s";
 		        rightPadding = "%" + (padding - extra) + "s";
