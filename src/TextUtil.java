@@ -50,23 +50,30 @@ public class TextUtil {
 		for(int i=0;i<paragraphs.length;i++){
 			paragraph = paragraphs[i].trim();
 	    	wordList = paragraph.split("\\s+");
+
 	    	// concatenate strings until line length reached
 	    	int j = 0;
 	    	while(j < wordList.length){
 	    		outStr = "";
 	    		temp = "";
+	    	
 	    		while((outStr.length() <= lineLength) && j < wordList.length){
-		    		temp = outStr;
-		    		outStr = outStr + " " + wordList[j];
+	    			temp = outStr;
+		    		
+					if(j == 0){
+						outStr = outStr + wordList[j];
+					}
+					else{
+						outStr = outStr + " " + wordList[j];
+					}
 		    		j++;
 		    	}
 		    	if(outStr.length() > lineLength){
 		    		outStr = temp;
 		    		j = j - 1;
 		    	}
-		    	
-		    	outStr = String.format(format, outStr);
-		    	System.out.println(outStr);
+		        outStr = String.format(format, outStr);
+	    		System.out.println(outStr);
 	    	}
 		}
 	}
@@ -79,7 +86,7 @@ public class TextUtil {
 	 */
 	public static void alignCenter(String[] paragraphs, int lineLength){
 		String[] wordList;
-		String paragraph, leftPadding, rightPadding, format;
+		String paragraph, format;
 		String outStr;
     	String temp;
 	    
@@ -94,7 +101,12 @@ public class TextUtil {
 	    		temp = "";
 	    		while((outStr.length() <= lineLength) && j < wordList.length){
 		    		temp = outStr;
-		    		outStr = outStr + " " + wordList[j];
+		    		if(j == 0){
+						outStr = outStr + wordList[j];
+					}
+					else{
+						outStr = outStr + " " + wordList[j];
+					}
 		    		j++;
 		    	}
 		    	if(outStr.length() > lineLength){
@@ -102,17 +114,17 @@ public class TextUtil {
 		    		j = j - 1;
 		    	}
 		    	
-		    	// max space from left/right margin
-		    	int maxPadding = 20;
-		        int padding = maxPadding / 2;
 		        // extra space at the start in case of String with odd space
-		        int extra = (outStr.length() % 2 == 0) ? 1 : 0;
+		        if(outStr.length() % 2 == 0){
+		        	outStr = " " + outStr;
+		        }
+		        int spaceRight = (lineLength - outStr.length())/2;
+		        for(int k=0;k<spaceRight;k++){
+		        	outStr +=  " ";
+		        }
 		        
-		        leftPadding = "%" + (padding - extra) + "s";
-		        rightPadding = "%" + padding + "s";
-		        format = leftPadding + "%s" + rightPadding;
-		        
-		    	outStr = String.format(format, "", outStr, "");
+		        format = "%" + lineLength + "s";
+		    	outStr = String.format(format, outStr);
 		    	System.out.println(outStr);
 	    	}
 		}
