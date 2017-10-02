@@ -60,7 +60,7 @@ public class TextUtil {
 	    		while((outStr.length() <= lineLength) && j < wordList.length){
 	    			temp = outStr;
 		    		
-					if(j == 0){
+					if(j == 0 || outStr.length() == 0){
 						outStr = outStr + wordList[j];
 					}
 					else{
@@ -101,7 +101,7 @@ public class TextUtil {
 	    		temp = "";
 	    		while((outStr.length() <= lineLength) && j < wordList.length){
 		    		temp = outStr;
-		    		if(j == 0){
+		    		if(j == 0 || outStr.length() == 0){
 						outStr = outStr + wordList[j];
 					}
 					else{
